@@ -1,0 +1,15 @@
+# Archivos de respaldo y temporales generados por Neovim
+*~
+*.swp
+*.swo
+
+# Carpeta de caché de Python (para proyectos de Python)
+__pycache__/
+
+# Archivos de registro y caché de Neovim
+*.log
+.netrwhist
+
+#Cache neovim?
+lazy-lock.jason
+
