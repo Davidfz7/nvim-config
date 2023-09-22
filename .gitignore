@@ -12,4 +12,6 @@ __pycache__/
 
 #Cache neovim?
 lazy-lock.jason
-
+mason/
+lazy/
+init.lua
