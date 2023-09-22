@@ -1,24 +1,29 @@
+--Method to run current file in terminal
 local Terminal  = require('toggleterm.terminal').Terminal
-local extension_commands = {
-   py  = "python3",
-   lua =  "lua",
-   js  =  "js file",
-   java = "java"
-}
-vim.fn.feedkeys("Hola mundo")
-local lazygit = Terminal:new({{ hidden = true, close_on_exit = false},
+local execute= Terminal:new({{ hidden = true, close_on_exit = false},
 on_open = function(term)
+	---------------------------------------------------------------------
 	local enter = vim.api.nvim_replace_termcodes("<CR>", true, true,true )
-	local bufname = vim.fn.bufname(vim.fn.bufnr('#')) 
-	local extension_commands = {
-		py   = "python3",
-		lua  = "lua",
-		js   = "js fiel",
-		java = {"javac", "java"}
-	}
-	local newBUffer = vim.fn.expand('#:p')
-	vim.fn.feedkeys(newBUffer)	
-        
+	local buffer_path = vim.fn.fnamemodify(vim.fn.expand('#:p'), ':h')
+	local buffer_name = vim.fn.fnamemodify(vim.fn.expand('#:p'), ':t')
+	---------------------------------------------------------------------	
+       	
+	--------------------------Go to file path----------------------------
+	vim.fn.feedkeys('cd '..buffer_path..enter)
+	vim.fn.feedkeys('clear'..enter)
+	if string.find(buffer_name, "lua") then
+		vim.fn.feedkeys('lua '..buffer_name..enter)
+	elseif string.find(buffer_name, "java") then
+		vim.fn.feedkeys('javac '..buffer_name..enter)
+		vim.fn.feedkeys('clear'..enter)
+ 		local bytecode = buffer_name:gsub("%.java$", " ")
+		vim.fn.feedkeys('java '..bytecode)	
+    elseif string.find(buffer_name, "py") then
+		vim.fn.feedkeys('python3 '..buffer_name..enter)
+    end
+
+ 
+
  	    --[[if string.find(bufname, "%b"..languages[i]) then 
                local file_path = vim.fn.fnamemodify(bufname, ':h')
                local file_name = vim.fn.fnamemodify(bufname, ':t')
@@ -58,38 +63,10 @@ on_open = function(term)
     end
 })
 
-function _lazygit_toggle()
-	lazygit:toggle()
+function run_file()
+	execute:toggle()
 end
-
---[[local lazygit = Terminal:new({
-  {
-    hidden = true,
-    close_on_exit = false
-  },
-  on_open = function(term)
-    local enter = vim.api.nvim_replace_termcodes("<CR>", true, true, true)
-    local bufname = vim.fn.bufname(vim.fn.bufnr('#'))
-    local ext = vim.fn.expand('%:e')
-
-    vim.fn.feedkeys('clear' .. enter)
-
-    local command = extension_commands[ext]
-    if command then
-      vim.fn.feedkeys(command .. ' ' .. bufname .. enter)
-    else
-      vim.fn.feedkeys("Language not recognized")
-    end
-  end
-})
-
-
-
-function aa()
-  lazygit:toggle()
-end]]--
-
-vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua run_file()<CR>", {noremap = true, silent = true})
  
 
 vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
