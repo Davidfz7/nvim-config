@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+require("david.lazy")
+require("david.remap")
 vim.cmd.colorscheme("habamax")
 vim.cmd(':set nu')
 vim.cmd(':set autoindent')
@@ -13,6 +16,6 @@ vim.cmd('set smartcase')
 vim.cmd('set hlsearch')
 --Makes search act like search in modern browsers
 vim.cmd('set incsearch')
-require("david.remap")
-require("david.lazy")
-require("david.scripts")
+
+
+
