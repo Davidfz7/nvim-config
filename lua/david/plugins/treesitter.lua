@@ -3,11 +3,11 @@ return {
     build = function()
     require("nvim-treesitter.install").update({with_sync = true})()
     end,
-    config = function() 
+    config = function()
      local configs = require("nvim-treesitter.configs")
      local install_confg = require("nvim-treesitter.install")
-         configs.setup({
-        ensure_installed = {"python"},
+        configs.setup({
+        ensure_installed = {"python", "javascript"},
         sync_install = false,
         highlight = {enable = true},
         indent = {enable = true}

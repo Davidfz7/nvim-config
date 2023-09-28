@@ -1,4 +1,3 @@
- 
 return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
@@ -52,5 +51,6 @@ return {
           ellipsis_char = "...",
         }),
       },
-    })end,
+    })
+  end,
 }

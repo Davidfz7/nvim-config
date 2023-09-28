@@ -10,9 +10,21 @@ vim.keymap.set("n", "<C-n>", ':s//', opts)
 vim.keymap.set("n", "<leader>stop",':noh<CR>', opts)
 --Replace all ocurrences
 vim.keymap.set("n", "<S-F>", ':%s//', opts )
---Open buffer menu
-vim.api.nvim_set_keymap('n', '<leader>bf', [[:lua require("buffer_manager.ui").toggle_quick_menu()<CR>]], opts)
+----------------------------------------------------
+--Harpoon config 
+--Mark files to revisit later
+local pingIt = require("harpoon.mark")
+local harpoonUI = require("harpoon.ui")
+vim.keymap.set('n', "<leader>ping", function() 
+                                  
+            pingIt.add_file()
+    end, opts)
 
+vim.keymap.set('n', "<leader>bf", function() 
+                                  
+            harpoonUI.toggle_quick_menu()
+    end, opts)
+---------------------------------------------------- 
 --Create a script for opening and running compiler according to the language--
 local Terminal  = require('toggleterm.terminal').Terminal
 local execute= Terminal:new({{ hidden = true, close_on_exit = false},
@@ -49,21 +61,21 @@ vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
 
 --Debuggin config----------------------------------------------------------
 
-local dapui = require('dapui')
-local dap   = require('dap')
+--local dapui = require('dapui')
+--local dap   = require('dap')
 
 --Open the ui for debuggin
-vim.keymap.set("n", "<leader>dg", function() dapui.toggle() end, opts)  
+--vim.keymap.set("n", "<leader>dg", function() dapui.toggle() end, opts)  
 --Set or unset a breakpoint
-vim.keymap.set("n", "<leader>brk", function() dap.toggle_breakpoint() end, opts)
+--vim.keymap.set("n", "<leader>brk", function() dap.toggle_breakpoint() end, opts)
 --Continue to next line
-vim.keymap.set("n", "<F5>", function() dap.continue() end, opts)
+--vim.keymap.set("n", "<F5>", function() dap.continue() end, opts)
 --Step over
-vim.keymap.set("n", "<F10>", function() dap.step_over() end, opts)
+--vim.keymap.set("n", "<F10>", function() dap.step_over() end, opts)
 --Step into
-vim.keymap.set("n", "<F11>", function() dap.step_into() end, opts)
+--vim.keymap.set("n", "<F11>", function() dap.step_into() end, opts)
 --Step out 
-vim.keymap.set("n", "<F12>", function() dap.step_out() end, opts)
+--vim.keymap.set("n", "<F12>", function() dap.step_out() end, opts)
 
 
 
